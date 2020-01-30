@@ -5,6 +5,7 @@ Given an input github URL, you get repo basic informations -usually used to eval
 
 Ideally, you should use the app to compare libs you want to pick up on your current project, so you have a window like that:
 
+```bash
 _________________________________________________
 NAME  | STARS | CONTRIBUTORS | LAST COMMIT       |
 _________________________________________________
@@ -14,7 +15,7 @@ LIB2  |   20  |   21         | 2019-01-01  11:12 |
 _________________________________________________
 LIB3  |   120 |   15         | 2020-11-11  11:11 |
 _________________________________________________
-
+```
 
 LIB1 looks better because of more stars, more contribs and recent updates 
 
