@@ -9,10 +9,8 @@ class MainContent extends React.Component {
 	}
 
 	render(){
-		return creator(
-			'div',
-			{onClick: () => { console.log("hello")}},
-			"content to implement"
+		return (
+			<div>Hello from JSX!</div>
 		)
 	}
 }
