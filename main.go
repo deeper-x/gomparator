@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -24,8 +25,26 @@ func main() {
 	fields := graphql.Fields{
 		"hello": &graphql.Field{
 			Type: graphql.String,
+			Args: graphql.FieldConfigArgument{
+				"id": &graphql.ArgumentConfig{
+					Type: graphql.NewNonNull(graphql.Int),
+				},
+			},
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				return "Hi, there...", nil
+				// curl -i http://127.0.0.1:8000/?query={hello(id:100)}
+				return fmt.Sprintf("Hello! passed id is: %d", p.Args["id"]), nil
+			},
+		},
+		"foo": &graphql.Field{
+			Type: graphql.String,
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				return "And content of foo is...", nil
+			},
+		},
+		"bar": &graphql.Field{
+			Type: graphql.String,
+			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+				return "Oh yeah, content of bar is...", nil
 			},
 		},
 	}
@@ -40,32 +59,28 @@ func main() {
 		log.Fatal(err)
 	}
 
-	query := `
-		{
-			hello
+	router.GET("/", func(c *gin.Context) {
+		param := c.Request.URL.Query()
+
+		query := param["query"][0]
+
+		params := graphql.Params{Schema: schema, RequestString: query}
+
+		r := graphql.Do(params)
+
+		data, _ := json.Marshal(r)
+
+		var ro map[string]map[string]interface{}
+		err = json.Unmarshal(data, &ro)
+
+		if err != nil {
+			log.Println(err)
 		}
-	`
 
-	params := graphql.Params{Schema: schema, RequestString: query}
+		res := ro["data"]
 
-	r := graphql.Do(params)
-
-	data, _ := json.Marshal(r)
-
-	var ro map[string]map[string]interface{}
-	err = json.Unmarshal(data, &ro)
-
-	if err != nil {
-		log.Println(err)
-	}
-
-	res := ro["data"]
-
-	log.Println("result:", res["hello"])
-
-	router.GET("/home", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"content": "here I am",
+			"content": res,
 		})
 	})
 
