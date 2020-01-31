@@ -1,4 +1,5 @@
 # gomparator
+
 [WIP]
 
 Given an input github URL, you get repo basic informations -usually used to evaluate project-, and store it for next comparisons.
@@ -19,4 +20,4 @@ _________________________________________________
 
 LIB1 looks better because of more stars, more contribs and recent updates 
 
-
+## USAGE
