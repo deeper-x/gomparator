@@ -2,15 +2,52 @@
 
 const creator = React.createElement;
 
-
 class MainContent extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
+		this.state = {value: ""}
+
+		this.handleChange = this.handleChange.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-	render(){
+	urlIsValid(inputUrl) {
+		// TODO
+		return true;
+	}
+
+	createUrl (inputUrl) {
+		// TODO - check url is valid
+		const elements = inputUrl.split("/");
+		return `https://api.github.com/repos/${elements[3]}/${elements[4]}`; 
+	}
+
+	handleChange(e) {
+		this.setState({value: e.target.value});
+	}
+
+	handleSubmit(e) {
+		const url = this.createUrl(this.state.value);
+		
+		axios.get(url)
+		.then( (response)=> {
+			ReactDOM.render(
+			<div>Name: { response.data.name} - Stars { response.data.stargazers_count}</div>,
+					document.getElementById("result")
+				);
+		});
+		
+		e.preventDefault();
+	}
+
+	render() {
 		return (
-			<div>Hello from JSX!</div>
+			<div>
+				<form onSubmit={this.handleSubmit}>
+					<input type="text" value={this.state.value} id="github_uri" onChange={this.handleChange} />
+					<input type="submit" />
+				</form>
+			</div>
 		)
 	}
 }

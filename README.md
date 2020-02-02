@@ -21,4 +21,9 @@ _________________________________________________
 LIB1 looks better because of more stars, more contribs and recent updates 
 
 ## USAGE [WIP]
+
 Ideally, you feed the system with a set of repos you'd like to evaluate, one by one
+
+```bash
+home: http://127.0.0.1:8000?query={home}
+```
