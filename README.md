@@ -26,4 +26,8 @@ Ideally, you feed the system with a set of repos you'd like to evaluate, one by 
 
 ```bash
 home: http://127.0.0.1:8000?query={home}
+# Demo
+input: https://github.com/avelino/awesome-go
+output: Name: awesome-go - Stars 51636
 ```
+
