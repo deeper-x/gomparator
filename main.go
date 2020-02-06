@@ -6,7 +6,6 @@ import (
 
 	"net/http"
 
-	"github.com/deeper-x/gomparator/records"
 	"github.com/deeper-x/gomparator/routing"
 	"github.com/gin-gonic/gin"
 )
@@ -31,15 +30,20 @@ func main() {
 			log.Println(err)
 		}
 
+		log.Println(result["data"])
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"content": result["data"],
 		})
 	})
 
-	conn := records.NewRepository()
+	// conn := records.NewRepository()
 
-	conn.SetKey("foo", "bar")
-	log.Println(conn.GetKey("foo"))
+	// conn.SetKey("foo", "bar")
+	// log.Println(conn.GetKey("foo"))
+	// conn.RPush("one")
+	// conn.RPush("two")
+
+	// log.Println(conn.GetAll())
 
 	router.Run(":8000")
 }

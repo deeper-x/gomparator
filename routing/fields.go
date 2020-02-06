@@ -25,4 +25,10 @@ var Fields = graphql.Fields{
 			return controller.Home(), nil
 		},
 	},
+	"saveData": &graphql.Field{
+		Type: graphql.String,
+		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+			return controller.SaveData(), nil
+		},
+	},
 }

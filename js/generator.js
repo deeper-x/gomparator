@@ -22,6 +22,14 @@ class MainContent extends React.Component {
 		return `https://api.github.com/repos/${elements[3]}/${elements[4]}`; 
 	}
 
+	storeRecord(stringToSave){
+		// axios.get(
+		// 	`http://127.0.0.1:8000/?query={saveData(data:${stringToSave})}`
+		// ).then(function(){
+		// 	console.log(`TODO saving on redis ${stringToSave}`);
+		// })
+	}
+
 	handleChange(e) {
 		this.setState({value: e.target.value});
 	}
@@ -30,11 +38,12 @@ class MainContent extends React.Component {
 		const url = this.createUrl(this.state.value);
 		
 		axios.get(url)
-		.then( (response)=> {
+		.then((response)=> {
 			ReactDOM.render(
-			<div>Name: { response.data.name} - Stars { response.data.stargazers_count}</div>,
-					document.getElementById("result")
-				);
+				<div>Name: { response.data.name} - Stars { response.data.stargazers_count}</div>,
+				document.getElementById("result")
+			);
+			this.storeRecord(response.data.name);
 		});
 		
 		e.preventDefault();

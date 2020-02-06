@@ -41,3 +41,13 @@ func (c Repository) GetKey(key string) string {
 
 	return val
 }
+
+// RPush is a redis rpush list wrapper
+func (c Repository) RPush(value string) {
+	c.Client.RPush("alist", value)
+}
+
+// GetAll returns all list items
+func (c Repository) GetAll() *redis.StringSliceCmd {
+	return c.Client.LRange("alist", 0, -1)
+}
