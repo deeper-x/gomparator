@@ -1,11 +1,11 @@
 package controller
 
 //Home todo doc
-func Home() string {
-	return "$database data"
+func Home() (string, error) {
+	return "database data", nil
 }
 
 // SaveData todo doc
-func SaveData() string {
-	return "todo save data"
+func SaveData() (string, error) {
+	return "todo save data", nil
 }

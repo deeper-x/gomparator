@@ -30,7 +30,6 @@ func main() {
 			log.Println(err)
 		}
 
-		log.Println(result["data"])
 		c.HTML(http.StatusOK, "index.html", gin.H{
 			"content": result["data"],
 		})

@@ -22,13 +22,13 @@ var Fields = graphql.Fields{
 	"home": &graphql.Field{
 		Type: graphql.String,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			return controller.Home(), nil
+			return controller.Home()
 		},
 	},
 	"saveData": &graphql.Field{
 		Type: graphql.String,
 		Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-			return controller.SaveData(), nil
+			return controller.SaveData()
 		},
 	},
 }
